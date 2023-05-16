@@ -1,66 +1,57 @@
 package com.example.housechefv03;
 
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.viewpager2.widget.ViewPager2;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.MenuItem;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
+import com.example.housechefv03.databinding.ActivityMainBinding;
+
 
 
 public class MainActivity extends AppCompatActivity {
+    ActivityMainBinding binding;
 
-    ViewPager2 viewPager2;
-    ViewPagerAdapter viewPagerAdapter;
-    BottomNavigationView bottomNavigationView;
-
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        bottomNavigationView = findViewById(R.id.bottomNav);
-        viewPager2 = findViewById(R.id.viewPager);
-        viewPagerAdapter = new ViewPagerAdapter(this);
-        viewPager2.setAdapter(viewPagerAdapter);
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @SuppressLint("NonConstantResourceId")
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                switch (id){
-                    case R.id.bottom_home:
-                        viewPager2.setCurrentItem(0);
-                        break;
-                    case R.id.bottom_list:
-                        viewPager2.setCurrentItem(1);
-                        break;
-                }
-                return false;
+        binding.bottomNav.setOnItemSelectedListener(item -> {
+
+            switch (item.getItemId()){
+                case R.id.bottom_home:
+                    replaceFragment(new Home());
+                    break;
+                case R.id.bottom_list:
+                    replaceFragment(new GroceryList());
+                    break;
+                case R.id.bottom_user:
+                    replaceFragment(new UserProfileFragment());
+                    break;
             }
+
+            return true;
         });
 
+    }
 
-        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                switch (position){
-                    case 0:
-                        bottomNavigationView.getMenu().findItem(R.id.bottom_home).setChecked(true);
-                        break;
-                    case 1:
-                        bottomNavigationView.getMenu().findItem(R.id.bottom_list).setChecked(true);
-                        break;
-                }
-                super.onPageSelected(position);
-            }
-        });
+    private void replaceFragment(Fragment fragment){
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.commit();
+
     }
 
 }
