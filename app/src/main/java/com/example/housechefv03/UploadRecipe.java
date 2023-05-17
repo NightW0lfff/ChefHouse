@@ -1,7 +1,5 @@
 package com.example.housechefv03;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -11,12 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,9 +28,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.util.AbstractCollection;
-import java.util.Objects;
-
 public class UploadRecipe extends AppCompatActivity {
 
     ImageView uploadImage;
@@ -41,9 +35,6 @@ public class UploadRecipe extends AppCompatActivity {
     EditText uploadTitle, uploadDescription, uploadIngredient, uploadInstruction;
     String imageURL;
     Uri imageUri;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +82,7 @@ public class UploadRecipe extends AppCompatActivity {
             }
         });
     }
+
 
 
     public void saveData(){
@@ -146,8 +138,28 @@ public class UploadRecipe extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(UploadRecipe.this, e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UploadRecipe.this, "Failed!", Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    private void showUnsavedChangesDialog() {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
+        builder.setMessage("You have unsaved changes. Are you sure you want to navigate back?")
+                .setPositiveButton("Discard", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // Do nothing, stay on the current screen
+                    }
+                });
+
+        androidx.appcompat.app.AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

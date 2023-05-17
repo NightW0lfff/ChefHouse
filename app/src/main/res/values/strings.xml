@@ -19,4 +19,9 @@
     <string name="enter_instruction">Enter Instruction</string>
     <string name="enter_description">Enter Description</string>
     <string name="save">Save</string>
+    <string name="ingredient_item_format">• </string>
+    <string name="add_item">Add Item</string>
+    <string name="enter_here">Enter here ...</string>
+    <string name="cancel">Cancel</string>
+
 </resources>

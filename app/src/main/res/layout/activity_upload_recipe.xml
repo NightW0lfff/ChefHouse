@@ -4,103 +4,97 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:orientation="vertical"
     tools:context=".UploadRecipe">
 
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        app:cardCornerRadius="30dp"
-        app:cardElevation="20dp">
-        
-        <LinearLayout
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:padding="20dp">
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center_horizontal"
-            android:padding="20dp">
+            android:text="@string/add_new_recipe"
+            android:textSize="30sp"
+            android:textAlignment="center"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/add_new_recipe"
-                android:textSize="30sp"
-                android:textAlignment="center"/>
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_baseline_upload_file_24"
+            android:id="@+id/uploadImg"
+            android:scaleType="fitCenter"
+            android:contentDescription="@string/recipe_image" />
 
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_baseline_upload_file_24"
-                android:id="@+id/uploadImg"
-                android:layout_marginTop="10dp"
-                android:scaleType="fitCenter"
-                android:contentDescription="@string/recipe_image" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/uploadTitle"
+            android:hint="@string/enter_recipe_title"
+            android:padding="16dp"
+            android:gravity="start|center_vertical">
+            <requestFocus/>
+        </EditText>
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/uploadTitle"
-                android:layout_marginTop="20dp"
-                android:padding="16dp"
-                android:hint="@string/enter_recipe_title"
-                android:gravity="start|center_vertical">
-                <requestFocus/>
-            </EditText>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/uploadDescription"
-                android:layout_marginTop="20dp"
-                android:padding="16dp"
-                android:hint="@string/enter_description"
-                android:inputType="textMultiLine"
-                android:minLines="1"
-                android:maxLines="100"
-                android:gravity="start|center_vertical"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/uploadDescription"
+            android:hint="@string/enter_description"
+            android:padding="16dp"
+            android:inputType="textMultiLine"
+            android:minLines="1"
+            android:maxLines="100"
+            android:gravity="start|center_vertical"/>
 
 
-            <EditText
-                android:id="@+id/uploadIngredient"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:padding="16dp"
-                android:hint="@string/enter_ingredients"
-                android:inputType="textMultiLine"
-                android:minLines="1"
-                android:imeOptions="actionDone"
-                android:maxLines="100">
-            </EditText>
+        <EditText
+            android:id="@+id/uploadIngredient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_ingredients"
+            android:padding="16dp"
+            android:inputType="textMultiLine"
+            android:minLines="1"
+            android:imeOptions="actionDone"
+            android:maxLines="100"
+            android:gravity="start|center_vertical" />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/uploadInstruction"
-                android:layout_marginTop="20dp"
-                android:padding="16dp"
-                android:hint="@string/enter_instruction"
-                android:inputType="textMultiLine"
-                android:minLines="1"
-                android:maxLines="100"
-                android:gravity="start|center_vertical"/>
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="@string/save"
-                android:id="@+id/btnSave"
-                android:textSize="18sp"
-                android:layout_marginTop="10dp"
-                app:cornerRadius = "20dp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/uploadInstruction"
+            android:hint="@string/enter_description"
+            android:padding="16dp"
+            android:inputType="textMultiLine"
+            android:minLines="1"
+            android:maxLines="100"
+            android:gravity="start|center_vertical"/>
 
 
-        </LinearLayout>
-        
-    </androidx.cardview.widget.CardView>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="@string/save"
+            android:id="@+id/btnSave"
+            android:textSize="16sp"
+            android:layout_marginTop="5dp"
+            app:cornerRadius = "20dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/cancel"
+            android:id="@+id/btnCancel"
+            android:textSize="16sp"
+            app:cornerRadius = "20dp"/>
+
+    </LinearLayout>
 
 </ScrollView>
