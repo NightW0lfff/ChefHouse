@@ -6,6 +6,15 @@ public class DataClass {
     private String dataIngredient;
     private String dataInstruction;
     private String dataImage;
+    private String key;
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 
     public DataClass(String dataTitle, String dataDescription, String dataIngredient, String dataInstruction, String dataImage) {
         this.dataTitle = dataTitle;
@@ -13,6 +22,10 @@ public class DataClass {
         this.dataIngredient = dataIngredient;
         this.dataInstruction = dataInstruction;
         this.dataImage = dataImage;
+    }
+
+    public DataClass(){
+
     }
 
     public String getDataTitle() {

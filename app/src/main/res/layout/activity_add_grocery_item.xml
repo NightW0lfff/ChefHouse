@@ -16,15 +16,7 @@
         android:layout_marginBottom="16dp"
         android:textStyle="bold"
         android:text="Back"
-        android:textSize="16sp"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@drawable/listview_border"
-        android:layout_above="@id/editItemLayout"
-        android:layout_below="@+id/backText"
-        android:layout_gravity="top"/>
+        android:textSize="20sp"/>
 
     <ListView
         android:id="@+id/groceryListView"

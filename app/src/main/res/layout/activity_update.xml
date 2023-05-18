@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:orientation="vertical"
+    tools:context=".UpdateActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Update Recipe"
+            android:textSize="30sp"
+            android:textAlignment="center"/>
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_baseline_upload_file_24"
+            android:id="@+id/updateImg"
+            android:scaleType="fitCenter"
+            android:contentDescription="@string/recipe_image" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/updateTitle"
+            android:hint="@string/enter_recipe_title"
+            android:padding="16dp"
+            android:gravity="start|center_vertical">
+            <requestFocus/>
+        </EditText>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/updateDescription"
+            android:hint="@string/enter_description"
+            android:padding="16dp"
+            android:inputType="textMultiLine"
+            android:minLines="1"
+            android:maxLines="100"
+            android:gravity="start|center_vertical"/>
+
+
+        <EditText
+            android:id="@+id/updateIngredient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_ingredients"
+            android:padding="16dp"
+            android:inputType="textMultiLine"
+            android:minLines="1"
+            android:imeOptions="actionDone"
+            android:maxLines="100"
+            android:gravity="start|center_vertical" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/updateInstruction"
+            android:hint="@string/enter_description"
+            android:padding="16dp"
+            android:inputType="textMultiLine"
+            android:minLines="1"
+            android:maxLines="100"
+            android:gravity="start|center_vertical"/>
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Update"
+            android:id="@+id/btnUpdate"
+            android:textSize="16sp"
+            android:layout_marginTop="5dp"
+            app:cornerRadius = "20dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/cancel"
+            android:id="@+id/btnCancel"
+            android:textSize="16sp"
+            app:cornerRadius = "20dp"/>
+
+    </LinearLayout>
+
+</ScrollView>

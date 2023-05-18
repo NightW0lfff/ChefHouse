@@ -28,6 +28,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.DateFormat;
+import java.util.Calendar;
+
 public class UploadRecipe extends AppCompatActivity {
 
     ImageView uploadImage;
@@ -126,7 +129,9 @@ public class UploadRecipe extends AppCompatActivity {
 
         DataClass dataClass = new DataClass(title, description, ingredient, instruction, imageURL);
 
-        FirebaseDatabase.getInstance().getReference("Recipes").child(title)
+        String currentDate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
+
+        FirebaseDatabase.getInstance().getReference("Recipes").child(currentDate)
                 .setValue(dataClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
