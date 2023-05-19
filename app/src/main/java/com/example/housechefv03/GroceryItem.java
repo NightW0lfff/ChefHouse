@@ -1,21 +1,49 @@
 package com.example.housechefv03;
 
+import java.util.ArrayList;
+
+
 public class GroceryItem {
-    private String name;
+    private ArrayList<String> items;
+    private String title;
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    private String key;
+
+    private ArrayList<String> itemKey;
+
+    public ArrayList<String> getItemKey() {
+        return itemKey;
+    }
+
+    public void setItemKey(ArrayList<String> itemKey) {
+        this.itemKey = itemKey;
+    }
 
     public GroceryItem() {
         // Default constructor required for calls to DataSnapshot.getValue(GroceryItem.class)
     }
 
-    public GroceryItem(String name) {
-        this.name = name;
+    public GroceryItem(String title, ArrayList<String> items) {
+        this.title = title;
+        this.items = items;
     }
 
-    public String getName() {
-        return name;
+
+    public ArrayList<String> getItems() {
+        return items;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getTitle() {
+        return title;
     }
+
 }
+

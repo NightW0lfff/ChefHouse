@@ -99,28 +99,4 @@ public class DetailActivity extends AppCompatActivity {
         });
 
     }
-
-    /*private void showUnsavedChangesDialog() {
-        if (!items.isEmpty()) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("You have unsaved changes. Are you sure you want to navigate back?")
-                    .setPositiveButton("Discard", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            finish();
-                        }
-                    })
-                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            // Do nothing, stay on the current screen
-                        }
-                    });
-
-            AlertDialog dialog = builder.create();
-            dialog.show();
-        } else {
-            finish();
-        }
-    }*/
 }

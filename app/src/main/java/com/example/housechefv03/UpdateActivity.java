@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,7 +35,7 @@ import com.google.firebase.storage.UploadTask;
 public class UpdateActivity extends AppCompatActivity {
 
     ImageView updateImage;
-    Button updateButton;
+    Button updateButton, cancelButton;
     EditText updateDesc, updateTitle, updateIngredient, updateInstruction;
     String title, desc, ingredient, instruction;
     String imageUrl;
@@ -48,6 +49,7 @@ public class UpdateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update);
 
+        cancelButton = findViewById(R.id.btnCancel);
         updateButton = findViewById(R.id.btnUpdate);
         updateTitle = findViewById(R.id.updateTitle);
         updateDesc = findViewById(R.id.updateDescription);
@@ -97,11 +99,13 @@ public class UpdateActivity extends AppCompatActivity {
                 Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
 
-             /*   FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.frame_layout, new Home());
-                fragmentTransaction.commit();*/
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showUnsavedChangesDialog();
             }
         });
     }
@@ -173,7 +177,25 @@ public class UpdateActivity extends AppCompatActivity {
                 Toast.makeText(UpdateActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
+    private void showUnsavedChangesDialog() {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
+        builder.setMessage("You have unsaved changes. Are you sure you want to navigate back?")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // Do nothing, stay on the current screen
+                    }
+                });
 
+        androidx.appcompat.app.AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

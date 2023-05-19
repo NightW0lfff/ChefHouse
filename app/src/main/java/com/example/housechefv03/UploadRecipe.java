@@ -34,7 +34,7 @@ import java.util.Calendar;
 public class UploadRecipe extends AppCompatActivity {
 
     ImageView uploadImage;
-    Button saveButton;
+    Button saveButton, cancelButton;
     EditText uploadTitle, uploadDescription, uploadIngredient, uploadInstruction;
     String imageURL;
     Uri imageUri;
@@ -50,6 +50,8 @@ public class UploadRecipe extends AppCompatActivity {
         uploadIngredient = findViewById(R.id.uploadIngredient);
         uploadInstruction = findViewById(R.id.uploadInstruction);
         saveButton = findViewById(R.id.btnSave);
+        cancelButton = findViewById(R.id.btnCancel);
+
 
 
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
@@ -82,6 +84,13 @@ public class UploadRecipe extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 saveData();
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showUnsavedChangesDialog();
             }
         });
     }
@@ -151,7 +160,7 @@ public class UploadRecipe extends AppCompatActivity {
     private void showUnsavedChangesDialog() {
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
         builder.setMessage("You have unsaved changes. Are you sure you want to navigate back?")
-                .setPositiveButton("Discard", new DialogInterface.OnClickListener() {
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         finish();
