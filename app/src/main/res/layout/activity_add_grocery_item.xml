@@ -6,24 +6,53 @@
     android:layout_height="match_parent"
     tools:context=".AddGroceryItem">
 
-    <TextView
-        android:id="@+id/backText"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="8dp"
-        android:layout_marginBottom="16dp"
-        android:textStyle="bold"
-        android:text="Back"
-        android:textSize="20sp"/>
+        android:layout_alignParentEnd="true"
+        android:id="@+id/functionListLayout"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/backText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="Back"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/listTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="8dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="Title"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="Done"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
 
     <ListView
         android:id="@+id/groceryListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/editItemLayout"
-        android:layout_below="@+id/backText">
+        android:layout_below="@+id/functionListLayout">
 
     </ListView>
 

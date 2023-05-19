@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".GroceryList">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/groceryRCView"
+        android:scrollbars="vertical"
+        android:layout_marginTop="10dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
