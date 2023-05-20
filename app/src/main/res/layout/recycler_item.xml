@@ -27,7 +27,8 @@
             app:shapeAppearanceOverlay="@style/roundedImageViewRounded"/>
         
         <TextView
-            android:layout_width="120dp"
+            android:layout_width="wrap_content"
+            android:maxWidth="160dp"
             android:layout_height="30dp"
             android:id="@+id/recTitle"
             android:text="Title"
@@ -48,6 +49,16 @@
             android:layout_marginStart="10dp"/>
 
     </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/starIcon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="16dp"
+        android:layout_gravity="center|end"
+        android:src="@drawable/selector_star"
+        android:clickable="true"
+        android:focusable="true"/>
 
 
 </androidx.cardview.widget.CardView>

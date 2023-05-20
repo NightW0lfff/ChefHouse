@@ -135,8 +135,9 @@ public class UploadRecipe extends AppCompatActivity {
         String description = uploadDescription.getText().toString();
         String ingredient = uploadIngredient.getText().toString();
         String instruction = uploadInstruction.getText().toString();
+        boolean favorite = false;
 
-        DataClass dataClass = new DataClass(title, description, ingredient, instruction, imageURL);
+        DataClass dataClass = new DataClass(title, description, ingredient, instruction, favorite, imageURL);
 
         String currentDate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
 

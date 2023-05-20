@@ -6,17 +6,27 @@ public class DataClass {
     private String dataIngredient;
     private String dataInstruction;
     private String dataImage;
+
+    public boolean getDataFavorite() {
+        return dataFavorite;
+    }
+
+    private boolean dataFavorite;
     private String key;
 
     public String getKey() {
         return key;
     }
 
+    public void setDataFavorite(boolean dataFavorite) {
+        this.dataFavorite = dataFavorite;
+    }
+
     public void setKey(String key) {
         this.key = key;
     }
 
-    public DataClass(String dataTitle, String dataDescription, String dataIngredient, String dataInstruction, String dataImage) {
+    public DataClass(String dataTitle, String dataDescription, String dataIngredient, String dataInstruction, boolean dataFavorite, String dataImage) {
         this.dataTitle = dataTitle;
         this.dataDescription = dataDescription;
         this.dataIngredient = dataIngredient;

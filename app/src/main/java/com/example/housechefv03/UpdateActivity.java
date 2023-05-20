@@ -38,6 +38,7 @@ public class UpdateActivity extends AppCompatActivity {
     Button updateButton, cancelButton;
     EditText updateDesc, updateTitle, updateIngredient, updateInstruction;
     String title, desc, ingredient, instruction;
+    boolean favorite;
     String imageUrl;
     String key, oldImageUrl;
     Uri uri;
@@ -78,6 +79,7 @@ public class UpdateActivity extends AppCompatActivity {
             updateDesc.setText(bundle.getString("Description"));
             updateIngredient.setText(bundle.getString("Ingredient"));
             updateInstruction.setText(bundle.getString("Instruction"));
+            favorite = bundle.getBoolean("isFavorite");
             key = bundle.getString("Key");
             oldImageUrl = bundle.getString("Image");
         }
@@ -153,9 +155,9 @@ public class UpdateActivity extends AppCompatActivity {
 
         DataClass dataClass;
         if (uri != null) {
-            dataClass = new DataClass(title, desc, ingredient, instruction, imageUrl);
+            dataClass = new DataClass(title, desc, ingredient, instruction, favorite, imageUrl);
         } else {
-            dataClass = new DataClass(title, desc, ingredient, instruction, oldImageUrl);
+            dataClass = new DataClass(title, desc, ingredient, instruction, favorite, oldImageUrl);
         }
 
 

@@ -2,6 +2,7 @@ package com.example.housechefv03;
 
 import android.content.Context;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,17 +14,21 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     private Context context;
-    private List<DataClass> dataList;
+    private List<DataClass> dataList, favoriteList;
+    DatabaseReference databaseReference;
 
     public MyAdapter(Context context, List<DataClass> dataList) {
         this.context = context;
         this.dataList = dataList;
+        this.favoriteList = new ArrayList<>();
     }
 
     @NonNull
@@ -38,6 +43,27 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         Glide.with(context).load(dataList.get(position).getDataImage()).into(holder.recImage);
         holder.recTitle.setText(dataList.get(position).getDataTitle());
         holder.recDesc.setText(dataList.get(position).getDataDescription());
+
+        boolean isFavorite = dataList.get(position).getDataFavorite();
+        if (isFavorite) {
+            Glide.with(context).load(R.drawable.baseline_star_24).into(holder.recIcon);
+        } else {
+            Glide.with(context).load(R.drawable.baseline_star_border_24).into(holder.recIcon);
+        }
+
+        holder.recIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean newFavoriteStatus = !dataList.get(holder.getAdapterPosition()).getDataFavorite();
+                dataList.get(holder.getAdapterPosition()).setDataFavorite(newFavoriteStatus);
+                notifyItemChanged(holder.getAdapterPosition());
+
+                databaseReference = FirebaseDatabase.getInstance().getReference("Recipes");
+
+                String key = dataList.get(holder.getAdapterPosition()).getKey();
+                databaseReference.child(key).child("dataFavorite").setValue(newFavoriteStatus);
+            }
+        });
 
         holder.recCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,10 +90,30 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         dataList = searchList;
         notifyDataSetChanged();
     }
+
+    public void setSearchDataList(ArrayList<DataClass> searchList){
+        dataList.clear();
+        favoriteList.clear();
+
+        for (DataClass item : searchList) {
+            dataList.add(item);
+            if (item.getDataFavorite()) {
+                favoriteList.add(item);
+            }
+        }
+
+        notifyDataSetChanged();
+    }
+
+    public void showFavoriteRecipes() {
+        dataList.clear();
+        dataList.addAll(favoriteList);
+        notifyDataSetChanged();
+    }
 }
 
 class MyViewHolder extends RecyclerView.ViewHolder{
-    ImageView recImage;
+    ImageView recImage, recIcon;
     TextView recTitle, recDesc, recIngredient, recInstruction;
     CardView recCard;
 
@@ -79,6 +125,7 @@ class MyViewHolder extends RecyclerView.ViewHolder{
         recCard = itemView.findViewById(R.id.recCard);
         recDesc = itemView.findViewById(R.id.recDesc);
         recTitle = itemView.findViewById(R.id.recTitle);
+        recIcon = itemView.findViewById(R.id.starIcon);
 
     }
 }
