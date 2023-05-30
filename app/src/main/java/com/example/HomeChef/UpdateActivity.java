@@ -1,4 +1,4 @@
-package com.example.housechefv03;
+package com.example.HomeChef;
 
 import android.app.Activity;
 import android.app.AlertDialog;

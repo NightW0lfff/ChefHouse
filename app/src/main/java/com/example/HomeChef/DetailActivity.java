@@ -1,4 +1,4 @@
-package com.example.housechefv03;
+package com.example.HomeChef;
 
 import android.content.Intent;
 import android.os.Bundle;

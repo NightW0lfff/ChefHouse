@@ -1,4 +1,4 @@
-package com.example.housechefv03;
+package com.example.HomeChef;
 
 
 import android.annotation.SuppressLint;
@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.housechefv03.databinding.ActivityMainBinding;
+import com.example.HomeChef.databinding.ActivityMainBinding;
 
 
 

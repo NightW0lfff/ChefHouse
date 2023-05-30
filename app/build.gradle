@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.housechefv03'
+    namespace 'com.example.HomeChef'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.housechefv03"
+        applicationId "com.example.HomeChef"
         minSdk 27
         targetSdk 33
         versionCode 1

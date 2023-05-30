@@ -1,4 +1,4 @@
-package com.example.housechefv03;
+package com.example.HomeChef;
 
 public class DataClass {
     private String dataTitle;

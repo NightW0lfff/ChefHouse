@@ -1,8 +1,6 @@
-package com.example.housechefv03;
+package com.example.HomeChef;
 
 import static org.junit.Assert.assertEquals;
-
-import junit.framework.TestCase;
 
 import org.junit.Assert;
 import org.junit.Test;
