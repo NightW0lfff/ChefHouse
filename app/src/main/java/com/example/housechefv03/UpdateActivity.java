@@ -1,14 +1,5 @@
 package com.example.housechefv03;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -21,11 +12,19 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -84,7 +83,10 @@ public class UpdateActivity extends AppCompatActivity {
             oldImageUrl = bundle.getString("Image");
         }
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Recipes").child(key);
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        String uid = auth.getCurrentUser().getUid();
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(uid).child("Recipes").child(key);
 
         updateImage.setOnClickListener(new View.OnClickListener() {
             @Override

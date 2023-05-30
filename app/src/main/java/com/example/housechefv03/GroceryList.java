@@ -1,10 +1,13 @@
 package com.example.housechefv03;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -12,15 +15,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.Toast;
-
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -58,7 +54,10 @@ public class GroceryList extends Fragment {
         adapter = new GroceryListAdapter(getContext(), dataList);
         recyclerView.setAdapter(adapter);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("GroceryLists");
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        String uid = auth.getCurrentUser().getUid();
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(uid).child("GroceryLists");
 
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
@@ -72,6 +71,7 @@ public class GroceryList extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 dataList.clear();
+                titleList.clear();
                 for (DataSnapshot listSnapshot : snapshot.getChildren()){
                     ArrayList<String> items = new ArrayList<>();
                     ArrayList<String> itemKeys = new ArrayList<>();

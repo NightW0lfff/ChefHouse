@@ -2,7 +2,6 @@ package com.example.housechefv03;
 
 import android.content.Context;
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -58,7 +58,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                 dataList.get(holder.getAdapterPosition()).setDataFavorite(newFavoriteStatus);
                 notifyItemChanged(holder.getAdapterPosition());
 
-                databaseReference = FirebaseDatabase.getInstance().getReference("Recipes");
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                String uid = auth.getCurrentUser().getUid();
+
+                databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(uid).child("Recipes");
 
                 String key = dataList.get(holder.getAdapterPosition()).getKey();
                 databaseReference.child(key).child("dataFavorite").setValue(newFavoriteStatus);

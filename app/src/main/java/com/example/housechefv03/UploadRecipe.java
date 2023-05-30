@@ -1,12 +1,5 @@
 package com.example.housechefv03;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -19,10 +12,18 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -38,6 +39,8 @@ public class UploadRecipe extends AppCompatActivity {
     EditText uploadTitle, uploadDescription, uploadIngredient, uploadInstruction;
     String imageURL;
     Uri imageUri;
+    boolean activityFinished;
+    boolean failureToastShown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +125,7 @@ public class UploadRecipe extends AppCompatActivity {
                     public void onSuccess(Uri urlImage) {
                         imageURL = urlImage.toString();
                         uploadData();
+                        activityFinished = true;
                         dialog.dismiss();
                     }
                 });
@@ -141,7 +145,10 @@ public class UploadRecipe extends AppCompatActivity {
 
         String currentDate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
 
-        FirebaseDatabase.getInstance().getReference("Recipes").child(currentDate)
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        String uid = auth.getCurrentUser().getUid();
+
+        FirebaseDatabase.getInstance().getReference("Users").child(uid).child("Recipes").child(currentDate)
                 .setValue(dataClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

@@ -1,19 +1,8 @@
 package com.example.housechefv03;
 
-import static android.content.ContentValues.TAG;
-import static android.os.Parcelable.PARCELABLE_WRITE_RETURN_VALUE;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
-
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,19 +12,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class AddGroceryItem extends AppCompatActivity {
 
@@ -97,6 +85,7 @@ public class AddGroceryItem extends AppCompatActivity {
 
         items = new ArrayList<>();
 
+
         if(data != null) {
             items = new ArrayList<>(data);
         }
@@ -111,7 +100,11 @@ public class AddGroceryItem extends AppCompatActivity {
     }
 
     private void removeList() {
-        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("GroceryLists");
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        String uid = auth.getCurrentUser().getUid();
+
+        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(uid).child("GroceryLists");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Are you sure to delete it?")
@@ -149,16 +142,8 @@ public class AddGroceryItem extends AppCompatActivity {
                 Context context = getApplicationContext();
                 Toast.makeText(context,"Item Removed", Toast.LENGTH_LONG).show();
 
-                final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("GroceryLists");
-
-                reference.child(key).child("items").child(itemKeys.get(i)).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        System.out.println(i);
-                        items.remove(i);
-                        itemsAdapter.notifyDataSetChanged();
-                    }
-                });
+                items.remove(i);
+                itemsAdapter.notifyDataSetChanged();
 
                 return true;
             }
@@ -168,9 +153,20 @@ public class AddGroceryItem extends AppCompatActivity {
     private void addItem(View view) {
         EditText input = view.getRootView().findViewById(R.id.groceryListItem);
         String itemText = input.getText().toString();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        String uid = auth.getCurrentUser().getUid();
+
+        DatabaseReference listReference = FirebaseDatabase.getInstance().getReference("Users").child(uid).child("GroceryLists");
+        String listkey = listReference.getKey();
+
+        if(key != null){
+            listkey = key;
+        }
 
         if(!itemText.isEmpty()){
             itemsAdapter.add(itemText);
+//            DatabaseReference newRef = listReference.child(listkey);
+//            newRef.child("items").push().setValue(itemText);
             input.setText("");
         }else{
             Toast.makeText(getApplicationContext(),"Please enter text ...", Toast.LENGTH_LONG).show();
@@ -179,7 +175,10 @@ public class AddGroceryItem extends AppCompatActivity {
 
 
     private void saveListToDatabase(ArrayList<String> items){
-        DatabaseReference listReference = FirebaseDatabase.getInstance().getReference("GroceryLists");
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        String uid = auth.getCurrentUser().getUid();
+
+        DatabaseReference listReference = FirebaseDatabase.getInstance().getReference("Users").child(uid).child("GroceryLists");
 
         // Create a new list entry with a unique key
         String listKey = listReference.push().getKey();
@@ -196,11 +195,17 @@ public class AddGroceryItem extends AppCompatActivity {
                         boolean itemChanged = false;
                         if (task.isSuccessful()) {
                             // Save each item in the list under the "items" child
-                            for (String item : items) {
-                                if(!oldItems.contains(item)) {
-                                    newListRef.child("items").push().setValue(item);
-                                    itemChanged = true;
-                                }
+//                            for (String item : items) {
+//                                if(!oldItems.contains(item)) {
+//                                    newListRef.child("items").push().setValue(item);
+//                                    itemChanged = true;
+//                                }
+//                            }
+
+                            newListRef.child("items").removeValue();
+
+                            for(String item: items){
+                                newListRef.child("items").push().setValue(item);
                             }
                             if(itemChanged) {
                                 Toast.makeText(getApplicationContext(), "List saved to database", Toast.LENGTH_SHORT).show();

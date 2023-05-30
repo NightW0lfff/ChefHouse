@@ -31,6 +31,7 @@ public class DataClass {
         this.dataDescription = dataDescription;
         this.dataIngredient = dataIngredient;
         this.dataInstruction = dataInstruction;
+        this.dataFavorite = dataFavorite;
         this.dataImage = dataImage;
     }
 

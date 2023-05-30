@@ -3,6 +3,9 @@ package com.example.housechefv03;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
@@ -10,12 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,7 +54,10 @@ public class Home extends Fragment {
 
         recyclerView.setAdapter(adapter);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Recipes");
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        String uid = auth.getCurrentUser().getUid();
+
+        databaseReference  = FirebaseDatabase.getInstance().getReference("Users").child(uid).child("Recipes");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setCancelable(false);

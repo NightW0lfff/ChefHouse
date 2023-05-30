@@ -1,16 +1,13 @@
 package com.example.housechefv03;
 
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.annotation.SuppressLint;
+import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-
-
-import android.annotation.SuppressLint;
-import android.os.Bundle;
 
 import com.example.housechefv03.databinding.ActivityMainBinding;
 
@@ -44,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(new UserProfileFragment());
                     break;
             }
-
             return true;
         });
 
